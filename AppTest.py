@@ -18,13 +18,14 @@ VA = 900
 VE = 15
 VD = 600
 VC = 90
-foodRow = 1
+
+
+
 class NutritionApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Nutrition App")
         self.root.geometry("600x400")
-        
         # Create notebook for different tabs
         notebook = ttk.Notebook(root)
         notebook.pack(fill='both', expand=True)
@@ -36,12 +37,10 @@ class NutritionApp:
         foodValTab = ttk.Frame(notebook)
         notebook.add(foodValTab, text = 'Food Codes')
 
-        #Create Buttons
+        # Data structure for Food Labels
         
 
-        
 
-        
         # # Pack Layout Demo
         # pack_frame = ttk.Frame(notebook)
         # notebook.add(pack_frame, text='Pack Layout')
@@ -61,11 +60,13 @@ class NutritionApp:
         #Initializes all default displays on calculator tab
         # Example of a label spanning multiple columns
         #tk.Label(parent, text="Spans 2 columns", bg='lightgray').grid(row=2, column=0, columnspan=2, sticky='ew', padx=5, pady=5)
+
+        self.foodLabels = [tk.Label(parent, text="Food", bg='lightgray').grid(row=0, column=5, padx=5, pady=5),
+        tk.Label(parent, text="Servings", bg='lightgray').grid(row=0, column=6, padx=5, pady=5)]
+
         tk.Label(parent, text="Nutrient", bg='lightgray').grid(row=0, column=0, padx=5, pady=5)
         tk.Label(parent, text="Daily Amount", bg='lightgray').grid(row=0, column=1, padx=5, pady=5)
         tk.Label(parent, text="Running Amount", bg='lightgray').grid(row=0, column=2, padx=5, pady=5)
-        tk.Label(parent, text="Food", bg='lightgray').grid(row=0, column=5, padx=5, pady=5)
-        tk.Label(parent, text="Servings", bg='lightgray').grid(row=0, column=6, padx=5, pady=5)
         tk.Label(parent, text="Protein", bg='lightyellow').grid(row=1, column=0, padx=5, pady=5)
         tk.Label(parent, text=str(PROTEIN), bg='lightgreen').grid(row=1, column=1, padx=5, pady=5)
         tk.Label(parent, text="Carbs", bg='lightyellow').grid(row=2, column=0, padx=5, pady=5)
@@ -112,6 +113,9 @@ class NutritionApp:
         #Enter Button
         self.foodRow = 1
         self.button = tk.Button(parent, text="Enter", command=lambda: self.add_food(parent)).grid(row=18, column=7, padx=5, pady=5)
+
+        #Clear Button
+        #self.button = tk.Button(parent, text="Clear", command=lambda: self.clear_all(parent)).grid(row=18, column=8, padx=5, pady=5)
     
         
     def add_food(self, parent): 
@@ -128,15 +132,15 @@ class NutritionApp:
             print("addfood for-loop entered")
             if foodE and foodValues[foodE]:
                 print("entry and dictionary match")
-                tk.Label(parent, text = foodE, bg='lightpink').grid(row=self.foodRow, column=5, padx=5, pady=5)
-                tk.Label(parent, text=self.foodServEntry.get(), bg='lightpink').grid(row=self.foodRow, column=6, padx=5, pady=5)
+                self.foodLabels.append(tk.Label(parent, text = foodE, bg='lightpink').grid(row=self.foodRow, column=5, padx=5, pady=5))
+                self.foodLabels.append(tk.Label(parent, text=self.foodServEntry.get(), bg='lightpink').grid(row=self.foodRow, column=6, padx=5, pady=5))
                 self.foodRow += 1
                 print(str(self.foodRow))
                 break
             
-        #def clearAll:
+        #def clear_all(self, parent):
             #clears calculator tab, clearing food entries and running nutrition values
-        
+            
         #def updateRunning(self, parent):
         #Updates labels to reflect current running nutrition variables
         
